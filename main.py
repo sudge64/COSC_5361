@@ -40,7 +40,7 @@ def main():
 
     # Datasets & loaders
     train_set = YOLODatasetLoader(train_img, train_lbl, transforms=transform)
-    test_set  = YOLODatasetLoader(test_img,  test_lbl,  transforms=transform)
+    test_set = YOLODatasetLoader(test_img,  test_lbl,  transforms=transform)
 
     train_loader = DataLoader(train_set,
                               batch_size=32,
