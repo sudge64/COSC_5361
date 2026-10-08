@@ -1,5 +1,11 @@
 # COSC 5361
 
+How to install the dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
 To train a model with logistic regression.
 
 ```bash
