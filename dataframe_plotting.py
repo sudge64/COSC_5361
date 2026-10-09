@@ -39,12 +39,12 @@ def show_plot(name, df, out):
 
   df.plot(
     x="Epoch",
-    y="Val Acc",
+    y=["Train Loss", "Val Loss"],
     kind="line",
     marker="o",
     xlabel="Epoch",
-    ylabel="Val Acc",
-    title="Epoch vs. Val Acc",
+    ylabel="Loss",
+    title="Epoch vs. Loss",
     ax=ax,
   )
 
@@ -80,3 +80,4 @@ def main():
 
 if __name__ == "__main__":
   main()
+

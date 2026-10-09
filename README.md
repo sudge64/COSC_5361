@@ -33,6 +33,6 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 
 ## References
 
-* [](https://github.com/DrGFreeman/rps-cv)
-* [](https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors)
+* [https://github.com/DrGFreeman/rps-cv](https://github.com/DrGFreeman/rps-cv)
+* [https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors](https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors)
 * []()
