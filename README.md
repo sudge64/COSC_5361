@@ -30,3 +30,9 @@ python dataframe_plotting.py --data $DATA --plot
 
 where `$DATA` is the path to the directory full of `*.csv` files.
 
+
+## References
+
+* [](https://github.com/DrGFreeman/rps-cv)
+* [](https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors)
+* []()
