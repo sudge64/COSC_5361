@@ -82,4 +82,5 @@ def set_args():
         type=float,
         help="Momentum to use (Recommended: 0).",
     )
+    parser.add_argument('--image', type=str, default=None, help='Path to a single image for inference')
     return parser.parse_args()

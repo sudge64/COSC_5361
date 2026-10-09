@@ -52,7 +52,9 @@ def train(
         device, 
         optimizer, 
         scaler, 
-        ckpt_path
+        ckpt_path,
+        test_img_paths=None,
+        class_names=None
 ):
     data = []
     val_acc_old = 0.0
@@ -82,8 +84,10 @@ def train(
         # Validation after each epoch (optional)
         model.eval()
         val_loss, correct, total = 0.0, 0, 0
+        batch_size = test_loader.batch_size
+        
         with torch.no_grad():
-            for imgs, targets in test_loader:
+            for i, (imgs, targets) in enumerate(test_loader):
                 imgs = imgs.to(device, non_blocking=True)
                 targets = targets.to(device, non_blocking=True)
                 logits = model(imgs)
@@ -92,6 +96,21 @@ def train(
                 _, pred = torch.max(logits, 1)
                 total   += targets.size(0)
                 correct += (pred == targets).sum().item()
+
+                # Print wrongly classified images
+                if test_img_paths is not None and class_names is not None:
+                    wrong_mask = (pred != targets)
+                    if wrong_mask.any():
+                        start_idx = i * batch_size
+                        end_idx = min(start_idx + batch_size, len(test_img_paths))
+                        for local_idx in torch.where(wrong_mask)[0].tolist():
+                            orig_idx = start_idx + local_idx
+                            if orig_idx < end_idx and orig_idx < len(test_img_paths):
+                                fname = Path(test_img_paths[orig_idx]).name
+                                true_cls = class_names[targets[local_idx].item()]
+                                pred_cls = class_names[pred[local_idx].item()]
+                                print(f"  ❌ Wrong: {fname} | True: {true_cls} | Pred: {pred_cls}")
+
         val_loss /= len(test_loader)
         val_acc = 100.0 * correct / total
         print(f'  val loss = {val_loss:.4f}, acc = {val_acc:.2f}%')
