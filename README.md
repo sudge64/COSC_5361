@@ -34,12 +34,13 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 
 | Model | Epochs | Optimizer | Test Accuracy |
 | -- | -- | -- | -- |
+| `LogisticRegression` | 0 | `None` | $89.95$% |
 | `SimpleCNN` | 50 | `None` | $34.70$% |
 | `SimpleCNN` | 100 | `None` | $31.96$% |
-| `SimpleCNN` | 50 | `SGD` | $$% |
-| `SimpleCNN` | 100 | `SGD` | $$% |
-| `SimpleCNN` | 50 | `ADAMW` | $$% |
-| `SimpleCNN` | 100 | `ADAMW` | $$% |
+| `SimpleCNN` | 50 | `SGD` | $97.26$% |
+| `SimpleCNN` | 100 | `SGD` | $99.54$% |
+| `SimpleCNN` | 50 | `ADAMW` | $99.54$% |
+| `SimpleCNN` | 100 | `ADAMW` | $99.54$% |
 
 
 ## References

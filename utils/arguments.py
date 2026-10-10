@@ -9,9 +9,16 @@ def set_args():
         type=int,
         help="Number of epochs for training (Recommended: 256).",
     )
-    parser.add_argument('--ckpt', type=str, default='checkpoints/last.pt')
-    parser.add_argument('--data', type=str,
-                        default='./rock-paper-scissors.v14i.yolov11/data.yaml')
+    parser.add_argument(
+        '--ckpt',
+        type=str,
+        default='checkpoints/last.pt'
+    )
+    parser.add_argument(
+        '--data',
+        type=str,
+        default='./rock-paper-scissors.v14i.yolov11/data.yaml'
+    )
     parser.add_argument(
         "--camera",
         type=int,
@@ -19,7 +26,7 @@ def set_args():
     )
     parser.add_argument(
         "--ml",
-        type=bool,
+        action="store_true",
         help="Choose whether to use machine learning or deep learning.",
     )
     parser.add_argument(
