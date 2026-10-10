@@ -59,7 +59,7 @@ def train(
         test_img_paths=None,
         class_names=None
 ):
-    if optimizer is not None:
+    if optimizer is None:
         raise ValueError("Optimizer can not be None when training. Pass a valid optimizer or skip training.")
     data = []
     val_acc_old = 0.0

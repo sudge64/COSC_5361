@@ -101,9 +101,9 @@ def main():
 
         if args.optim:
             match args.optim:
-                case 'adamw':
+                case "adamw":
                     optimizer = optim.AdamW(model.parameters(), lr=0.001, betas=(0.8, 0.999), eps=1e-8, weight_decay=0.01)
-                case 'sgd':
+                case "sgd":
                     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
         else:
             optimizer = None

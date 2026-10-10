@@ -34,8 +34,8 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 
 | Model | Epochs | Optimizer | Test Accuracy |
 | -- | -- | -- | -- |
-| `SimpleCNN` | 50 | `None` | $31.96$% |
-| `SimpleCNN` | 100 | `None` | $33.33$% |
+| `SimpleCNN` | 50 | `None` | $34.70$% |
+| `SimpleCNN` | 100 | `None` | $31.96$% |
 | `SimpleCNN` | 50 | `SGD` | $$% |
 | `SimpleCNN` | 100 | `SGD` | $$% |
 | `SimpleCNN` | 50 | `ADAMW` | $$% |
