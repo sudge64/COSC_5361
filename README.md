@@ -9,7 +9,7 @@ pip install -r requirements.txt
 To train a model with logistic regression.
 
 ```bash
-python main.py --data $DATA --ml TRUE
+python main.py --data $DATA --ml
 ```
 
 where `$DATA` is the path to the yaml file inside a YOLO formatted dataset.
