@@ -4,29 +4,32 @@ import pandas as pd
 import time
 
 def saving_helper(optimizer, epoch, folder: Path, name: str | None = None):
-    optim_folder = folder / type(optimizer).__name__
-    optim_folder.mkdir(parents=True, exist_ok=True)
+    subdir_name = type(optimizer).__name__ if optimizer is not None else "NoOptimizer"
+    (folder / subdir_name).mkdir(parents=True, exist_ok=True)
 
     if name is not None:
-        return optim_folder, name
+        return subdir_name, name
 
-    param_group = optimizer.param_groups[0].copy()
-    param_group.pop('params', None)
-    param_str = "_".join(f"{k}_{v}" for k, v in param_group.items())
+    if optimizer is not None:
+        param_group = optimizer.param_groups[0].copy()
+        param_group.pop('params', None)
+        param_str = "_".join(f"{k}_{v}" for k, v in param_group.items())
+    else:
+        param_str = "none"
 
     filename = f"epochs_{epoch}_{param_str}"
 
-    return optim_folder, filename
+    return subdir_name, filename
 
 def save_checkpoint(optimizer, epoch, state, folder: Path, name=None):
-    folder, filename = saving_helper(optimizer, epoch, folder, name)
-    checkpoint = folder / f"{filename}.pt"
+    subdir_name, filename = saving_helper(optimizer, epoch, folder, name)
+    checkpoint = folder / subdir_name / f"{filename}.pt"
     torch.save(state, checkpoint)
     print(f'Checkpoint saved -> {checkpoint}')
 
 def save_dataframe(df, optimizer, epoch, folder: Path, name=None):
-    folder, filename = saving_helper(optimizer, epoch+1, folder, name)
-    path = folder / f"{filename}.csv"
+    subdir_name, filename = saving_helper(optimizer, epoch+1, folder, name)
+    path = folder / subdir_name / f"{filename}.csv"
     df.to_csv(path, index=False)
     print(f'DataFrame saved -> {folder}')
 
@@ -56,6 +59,8 @@ def train(
         test_img_paths=None,
         class_names=None
 ):
+    if optimizer is not None:
+        raise ValueError("Optimizer can not be None when training. Pass a valid optimizer or skip training.")
     data = []
     val_acc_old = 0.0
     for epoch in range(start_epoch, epochs):
@@ -68,13 +73,19 @@ def train(
             imgs   = imgs.to(device, non_blocking=True)
             targets = targets.to(device, non_blocking=True)
 
-            optimizer.zero_grad()
-            with torch.cuda.amp.autocast():
-                logits = model(imgs)
-                loss   = criterion(logits, targets)
-            scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
+            if optimizer is not None:
+                optimizer.zero_grad()
+                with torch.cuda.amp.autocast():
+                    logits = model(imgs)
+                    loss   = criterion(logits, targets)
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
+            else:
+                with torch.cuda.amp.autocast():
+                    logits = model(imgs)
+                    loss   = criterion(logits, targets)
+                scaler.scale(loss).backward()
 
             running_loss += loss.item()
 
@@ -109,22 +120,34 @@ def train(
                                 fname = Path(test_img_paths[orig_idx]).name
                                 true_cls = class_names[targets[local_idx].item()]
                                 pred_cls = class_names[pred[local_idx].item()]
-                                print(f"  ❌ Wrong: {fname} | True: {true_cls} | Pred: {pred_cls}")
+                                print(f"x Wrong: {fname}")
+                                print(f"True: {true_cls} | Pred: {pred_cls}")
 
         val_loss /= len(test_loader)
         val_acc = 100.0 * correct / total
         print(f'  val loss = {val_loss:.4f}, acc = {val_acc:.2f}%')
 
         # Checkpoint
-        ckpt_state = {
-            'epoch': epoch + 1,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'scaler_state_dict': scaler.state_dict() if scaler else None,
-            'loss': epoch_loss,
-            'val_loss': val_loss,
-            'val_accuracy': val_acc,
-        }
+        if optimizer is not None:
+            ckpt_state = {
+                'epoch': epoch + 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'scaler_state_dict': scaler.state_dict() if scaler else None,
+                'loss': epoch_loss,
+                'val_loss': val_loss,
+                'val_accuracy': val_acc,
+            }
+        else:
+            ckpt_state = {
+                'epoch': epoch + 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': None,
+                'scaler_state_dict': scaler.state_dict() if scaler else None,
+                'loss': epoch_loss,
+                'val_loss': val_loss,
+                'val_accuracy': val_acc,
+            }
         if val_acc > val_acc_old:
             val_acc_old = val_acc
             save_checkpoint(optimizer, epoch, ckpt_state, ckpt_path.parent, name='best')

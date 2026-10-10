@@ -100,9 +100,13 @@ def main():
         scaler = torch.amp.GradScaler(device=device)
 
         if args.optim:
-            optimizer = optim.AdamW(model.parameters(), lr=0.001, betas=(0.8, 0.999), eps=1e-8, weight_decay=0.01)
+            match args.optim:
+                case 'adamw':
+                    optimizer = optim.AdamW(model.parameters(), lr=0.001, betas=(0.8, 0.999), eps=1e-8, weight_decay=0.01)
+                case 'sgd':
+                    optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
         else:
-            optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+            optimizer = None
 
     ckpt_path = Path(args.ckpt)
     start_epoch = 0
