@@ -42,6 +42,36 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 | `SimpleCNN` | 50 | `ADAMW` | $99.54$% |
 | `SimpleCNN` | 100 | `ADAMW` | $99.54$% |
 
+SimpleCNN | None | 50:
+Weighted Precision: 0.1204
+Weighted Recall: 0.3470
+Weighted F1-Score: 0.1788
+
+SimpleCNN | None | 100:
+Weighted Precision: 0.1022
+Weighted Recall: 0.3196
+Weighted F1-Score: 0.1548
+
+SimpleCNN | SGD | 50:
+Weighted Precision: 0.9819
+Weighted Recall: 0.9817
+Weighted F1-Score: 0.9818
+
+SimpleCNN | SGD | 100:
+Weighted Precision: 0.9779
+Weighted Recall: 0.9772
+Weighted F1-Score: 0.9773
+
+SimpleCNN | ADAMW | 50:
+Weighted Precision: 0.9863
+Weighted Recall: 0.9863
+Weighted F1-Score: 0.9863
+
+SimpleCNN | ADAMW | 100:
+Weighted Precision: 0.9774
+Weighted Recall: 0.9772
+Weighted F1-Score: 0.9772
+
 
 ## References
 

@@ -10,7 +10,7 @@ from utils.YOLODatasetLoader import YOLODatasetLoader
 from pathlib import Path
 from torch.utils.data import DataLoader
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report, precision_score, recall_score, f1_score
 
 import sys
 import torch
@@ -87,6 +87,8 @@ def main():
         y_pred = model.predict(X_test)
         acc = (y_pred == y_test).mean() * 100
         print(f"\nTest Accuracy (Logistic Regression): {acc:.2f}%")
+
+        print(classification_report(y_test, y_pred))
         
         cm = confusion_matrix(y_test, y_pred)
         print_confusion_matrix(cm, cfg['names'])
@@ -159,6 +161,12 @@ def main():
             all_targets.extend(targets.cpu().numpy())
             
     print(f'\nTest accuracy: {100.0 * correct / total:.2f}%')
+    precision = precision_score(all_targets, all_preds, average='weighted')
+    recall = recall_score(all_targets, all_preds, average='weighted')
+    f1 = f1_score(all_targets, all_preds, average='weighted')
+    print(f"Weighted Precision: {precision:.4f}")
+    print(f"Weighted Recall: {recall:.4f}")
+    print(f"Weighted F1-Score: {f1:.4f}")
 
     # Compute confusion matrix if not loaded from checkpoint
     if cm is None:
