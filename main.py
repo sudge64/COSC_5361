@@ -13,6 +13,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report, precision_score, recall_score, f1_score
 
 import sys
+import cv2
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -202,6 +204,16 @@ def main():
                         confidence = probs[0, pred_id].item()
                         
                     print(f'{img_path.name}: {pred_name} ({confidence:.2%})')
+
+                    # Display with cv2
+                    img_cv2 = cv2.cvtColor(np.array(img_pil), cv2.COLOR_RGB2BGR)
+                    cv2.namedWindow("Inference Image", cv2.WINDOW_NORMAL)
+                    cv2.resizeWindow('Inference Image', 640, 480)
+                    cv2.imshow('Inference Image', img_cv2)
+                    if cv2.waitKey(0) & 0xFF == ord(' '):  # Check for space key
+                        pass
+                    cv2.destroyAllWindows()
+
 
 if __name__ == '__main__':
     main()
