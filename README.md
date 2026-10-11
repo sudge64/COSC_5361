@@ -20,7 +20,7 @@ To train a model using a CNN.
 python main.py --data $DATA --train --epochs $EPOCHS --optim $OPTIM
 ```
 
-where `$DATA` is the path to the yaml file inside a YOLO formatted dataset, `$EPOCHS` is the number of epochs and `$OPTIM` is the name of the optimizer algorithm to use, i.e. `[sgd, adamw]`.
+where `$DATA` is the path to the yaml file inside a YOLO formatted dataset, `$EPOCHS` is the number of epochs and `$OPTIM` is the name of the optimizer algorithm to use, i.e. `[None, sgd, adamw]`.
 
 To display results of a model.
 
@@ -36,9 +36,9 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 | -- | -- | -- | -- |
 | `LogisticRegression` | 0 | `None` | $89.95$% |
 | `SimpleCNN` | 50 | `None` | $34.70$% |
-| `SimpleCNN` | 100 | `None` | $31.96$% |
+| `SimpleCNN` | 100 | `None` | $34.70$% |
 | `SimpleCNN` | 50 | `SGD` | $97.26$% |
-| `SimpleCNN` | 100 | `SGD` | $99.54$% |
+| `SimpleCNN` | 100 | `SGD` | $99.09$% |
 | `SimpleCNN` | 50 | `ADAMW` | $99.54$% |
 | `SimpleCNN` | 100 | `ADAMW` | $99.54$% |
 
