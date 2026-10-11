@@ -32,6 +32,36 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 
 ## Results
 
+### Non-Augmented
+
+| Model | Epochs | Optimizer | Test Accuracy |
+| -- | -- | -- | -- |
+| `LogisticRegression` | 0 | `None` | $89.95$% |
+| `SimpleCNN` | 50 | `None` | $31.96$% |
+| `SimpleCNN` | 100 | `None` | $$% |
+| `SimpleCNN` | 50 | `SGD` | $$% |
+| `SimpleCNN` | 100 | `SGD` | $$% |
+| `SimpleCNN` | 50 | `ADAMW` | $$% |
+| `SimpleCNN` | 100 | `ADAMW` | $$% |
+
+SimpleCNN | None | 50:
+Weighted Precision: 0.1022
+Weighted Recall: 0.3196
+Weighted F1-Score: 0.1548
+
+SimpleCNN | None | 100:
+Weighted Precision: 0.1111
+Weighted Recall: 0.3333
+Weighted F1-Score: 0.1667
+
+
+SimpleCNN | SGD | 50:
+SimpleCNN | SGD | 100:
+SimpleCNN | ADAMW | 50:
+SimpleCNN | ADAMW | 100:
+
+### Augmented
+
 | Model | Epochs | Optimizer | Test Accuracy |
 | -- | -- | -- | -- |
 | `LogisticRegression` | 0 | `None` | $89.95$% |
