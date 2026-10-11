@@ -34,75 +34,29 @@ where `$DATA` is the path to the directory full of `*.csv` files.
 
 ### Non-Augmented
 
-| Model | Epochs | Optimizer | Test Accuracy |
-| -- | -- | -- | -- |
-| `LogisticRegression` | 0 | `None` | $89.95$% |
-| `SimpleCNN` | 50 | `None` | $31.96$% |
-| `SimpleCNN` | 100 | `None` | $$% |
-| `SimpleCNN` | 50 | `SGD` | $$% |
-| `SimpleCNN` | 100 | `SGD` | $$% |
-| `SimpleCNN` | 50 | `ADAMW` | $$% |
-| `SimpleCNN` | 100 | `ADAMW` | $$% |
-
-SimpleCNN | None | 50:
-Weighted Precision: 0.1022
-Weighted Recall: 0.3196
-Weighted F1-Score: 0.1548
-
-SimpleCNN | None | 100:
-Weighted Precision: 0.1111
-Weighted Recall: 0.3333
-Weighted F1-Score: 0.1667
-
-
-SimpleCNN | SGD | 50:
-SimpleCNN | SGD | 100:
-SimpleCNN | ADAMW | 50:
-SimpleCNN | ADAMW | 100:
+| Model | Epochs | Optimizer | Test Accuracy | Precision | Recall | F1-Score |
+| -- | -- | -- | -- | -- | -- | -- |
+| `LogisticRegression` | 0 | `None` | $89.95$% | $0.90$ | $0.89$ | $0.90$ |
+| `SimpleCNN` | 50 | `None` | $26.48$% | $0.1636$ | $0.2648$ | $0.1784$ |
+| `SimpleCNN` | 100 | `None` | $33.33$% | $0.1111$ | $0.3333$ | $0.1667$ |
+| `SimpleCNN` | 50 | `SGD` | $97.72$% | $0.9775$ | $0.9772$ | $0.9771$ |
+| `SimpleCNN` | 100 | `SGD` | $98.63$% | $0.9869$ | $0.9863$ | $0.9863$ |
+| `SimpleCNN` | 50 | `ADAMW` | $99.54$% | $0.9955$ | $0.9954$ | $0.9954$ |
+| `SimpleCNN` | 100 | `ADAMW` | $98.63$% | $0.9864$ | $0.98643 | $0.9863$ |
 
 ### Augmented
 
-| Model | Epochs | Optimizer | Test Accuracy |
-| -- | -- | -- | -- |
-| `LogisticRegression` | 0 | `None` | $89.95$% |
-| `SimpleCNN` | 50 | `None` | $34.70$% |
-| `SimpleCNN` | 100 | `None` | $34.70$% |
-| `SimpleCNN` | 50 | `SGD` | $97.26$% |
-| `SimpleCNN` | 100 | `SGD` | $99.09$% |
-| `SimpleCNN` | 50 | `ADAMW` | $99.54$% |
-| `SimpleCNN` | 100 | `ADAMW` | $99.54$% |
+| Model | Epochs | Optimizer | Test Accuracy | Precision | Recall | F1-Score |
+| -- | -- | -- | -- | -- | -- | -- |
+| `LogisticRegression` | 0 | `None` | $89.95$% | $0.91$ | $0.90$ | $0.90$ |
+| `SimpleCNN` | 50 | `None` | $34.70$% | $0.1204$ | $0.3470$ | $0.1788$ |
+| `SimpleCNN` | 100 | `None` | $34.70$% | $0.1022$ | $$ | $$ |
+| `SimpleCNN` | 50 | `SGD` | $97.26$% | $0.9819$ | $0.9817$ | $0.9818$ |
+| `SimpleCNN` | 100 | `SGD` | $99.09$% | $0.9779$ | $0.9772$ | $0.9773$ |
+| `SimpleCNN` | 50 | `ADAMW` | $99.54$% | $0.9863$ | $0.9863$ | $0.9863$ |
+| `SimpleCNN` | 100 | `ADAMW` | $99.54$% | $0.9774$ | $0.9772$ | $0.9772$ |
 
-SimpleCNN | None | 50:
-Weighted Precision: 0.1204
-Weighted Recall: 0.3470
-Weighted F1-Score: 0.1788
-
-SimpleCNN | None | 100:
-Weighted Precision: 0.1022
-Weighted Recall: 0.3196
-Weighted F1-Score: 0.1548
-
-SimpleCNN | SGD | 50:
-Weighted Precision: 0.9819
-Weighted Recall: 0.9817
-Weighted F1-Score: 0.9818
-
-SimpleCNN | SGD | 100:
-Weighted Precision: 0.9779
-Weighted Recall: 0.9772
-Weighted F1-Score: 0.9773
-
-SimpleCNN | ADAMW | 50:
-Weighted Precision: 0.9863
-Weighted Recall: 0.9863
-Weighted F1-Score: 0.9863
-
-SimpleCNN | ADAMW | 100:
-Weighted Precision: 0.9774
-Weighted Recall: 0.9772
-Weighted F1-Score: 0.9772
-
-Mis-classifications:
+### Misclassifications:
 
 ```
 paper_back_2_wade_jpeg.rf.c9f4f1beefdc93b57636f0fde6449160.jpg: Rock (96.05%)
@@ -128,6 +82,25 @@ scissors_front_4_huggins_jpeg.rf.a950219a42a65899b045106d42143332.jpg: Paper (79
 
 ## References
 
-* [https://github.com/DrGFreeman/rps-cv](https://github.com/DrGFreeman/rps-cv)
+```bibtex
+@INPROCEEDINGS{10111433,
+  author={Ahmed, Fahad and Khan, Wasim Ahmad and Iqbal, Muhammad and Ahmad Abazeed, Ashraf Riad and Alrababah, Hamza and Khan, Muhammad Farhan},
+  booktitle={2023 International Conference on Business Analytics for Technology and Security (ICBATS)}, 
+  title={Rock-Paper-Scissors Image Classification Using Transfer Learning}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-6},
+  keywords={Training;Analytical models;Image recognition;Transfer learning;Games;Rocks;Security;Transfer learning (TL);AlexNet;Rock-Paper-Scissors},
+  doi={10.1109/ICBATS57792.2023.10111433}}
+
+@misc{leung2019pphp,
+  author    = {Leung, Man Fung and Wong, Ka Chung and Han, Chenfeng},
+  title     = {PPHP: Project Hand Pose -- An Exploration to Develop Neural Networks for Personal Devices},
+  year      = {2019},
+  howpublished = {\url{https://hemanlmf.github.io/research/pphp/report.pdf}},
+  note      = {Supervised by Dr. Libo Zhang. Image Processing at ISCAS}
+}
+```
+
 * [https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors](https://www.kaggle.com/datasets/drgfreeman/rockpaperscissors)
-* []()
